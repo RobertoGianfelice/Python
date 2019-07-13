@@ -1,17 +1,30 @@
-def rime(a,b,c,n,m,metrica):
-  
+totale=0
+def rime(lettere,n,m,metrica):
+  global totale
   l=len(metrica)
-  completo=a>0 and b>0 and c>0
+  completo=True
+  somma=0
+  for i in range(m):
+    completo=lettere[i]>0 and completo
+    somma+=lettere[i]
+
   if l==n and completo:
-    print("metrica=",metrica)
+    totale+=1
+    print("metrica[",totale,"]=",metrica)
   else:
-    if a+b+c<=n and a<=n-m+1 and l>=0:
-      rime(a+1,b,c,n,m,metrica+"a")
+    for i in range(m):
+      if somma<=n and lettere[i]<=n-m+1 and l>=i and (i==0 or lettere[i-1]>0):
+        lettere2=lettere[:]
+        lettere2[i]+=1
+        rime(lettere2,n,m,metrica+chr(ord("a")+i))
 
-    if a+b+c<=n and b<=n-m+1 and l>=1 and a>0:
-      rime(a,b+1,c,n,m,metrica+"b")
+#Main
+n=int(input("Inserisci la lunghezza della sequenza: "))
+m=n+1
+while (m>n or m<1):
+  m=int(input("Inserisci il numero di rime: "))
 
-    if a+b+c<=n and c<=n-m+1 and l>=2 and b>0:
-      rime(a,b,c+1,n,m,metrica+"c")
-
-rime(0,0,0,3,3,"")
+lettere=[]
+for i in range(m):
+  lettere.append(0)
+rime(lettere,n,m,"")
