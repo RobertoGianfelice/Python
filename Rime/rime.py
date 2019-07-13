@@ -1,20 +1,17 @@
-a=3
-b=1
-c=1
-
-def rime(a,b,c,metrica):
-
+def rime(a,b,c,n,m,metrica):
+  
   l=len(metrica)
-  if len(metrica)==5:
+  completo=a>0 and b>0 and c>0
+  if l==n and completo:
     print("metrica=",metrica)
   else:
-    if a>0:
-      rime(a-1,b,c,metrica+"a")
+    if a+b+c<=n and a<=n-m+1 and l>=0:
+      rime(a+1,b,c,n,m,metrica+"a")
 
-    if b>0 and l>=1:
-      rime(a,b-1,c,metrica+"b")
+    if a+b+c<=n and b<=n-m+1 and l>=1 and a>0:
+      rime(a,b+1,c,n,m,metrica+"b")
 
-    if c>0 and l>=2:
-      rime(a,b,c-1,metrica+"c")
+    if a+b+c<=n and c<=n-m+1 and l>=2 and b>0:
+      rime(a,b,c+1,n,m,metrica+"c")
 
-rime(3,1,1,"")
+rime(0,0,0,3,3,"")
