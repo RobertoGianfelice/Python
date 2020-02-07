@@ -1,3 +1,13 @@
+##Ero a dirottar trattori da ore
+##Ai lati d’Italia
+##I seni cinesi
+##Etna gigante
+##Era pacifica pare
+##I brevi diverbi
+##
+##https://www.frasimania.it/frasi-palindrome/
+
+
 stringa=input("Inserisci la stringa da analizzare: ")
 stringa=stringa.lower()
 sinistra=0
