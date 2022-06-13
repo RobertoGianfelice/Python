@@ -1,13 +1,13 @@
 n=int(input("Inserire il numero: "))
 
-def stampaNumero(n):
-    print(f"il numero inserito vale {n}")
+def stampaNumero(numero):
+    print(f"il numero inserito vale {numero}!")
 
-def stampaTabellina(n):
+def stampaTabellina(ilNumero):
     for i in range(1,11):
-        print(f"{n}*{i}=\t{n*i}")
+        print(f"{ilNumero}*{i}=\t{ilNumero*i}")
 
-def stampaPotenza(numero,e):
+def calcolaPotenza(numero,e):
     pot=numero
     for i in range(1,e+1):
         pot=pot*pot
@@ -27,8 +27,8 @@ def calcolaFattoriale(numero):
 
 stampaNumero(n)
 stampaTabellina(n)
-esponente=int(input("Inserisci l'esponente: "))
-stampaPotenza(n,esponente)
+esponente=int(input("  Inserisci l'esponente: "))
+potenza=calcolaPotenza(n,esponente)
 stampaFattoriale(n)
 
 fattoriale=calcolaFattoriale(n)
