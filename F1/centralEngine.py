@@ -1,15 +1,16 @@
 import mysql.connector
 import os
 import time
+import random
 tBoxTime="0:0:24"
 tLapTime="0:1:0"
 
-iscritti=[("Verstappen","VER","RedBull",    "REB","0:0:0","0:0:0","0:0:0","S",0),
-            ("Perez",   "PER","RedBull",    "REB","0:0:0","0:0:0","0:0:0","S",0),
-            ("Leclerc", "LEC","Ferrari",    "FER","0:0:0","0:0:0","0:0:0","S",0),
-            ("Sainz",   "SAI","Ferrrari",   "FER","0:0:0","0:0:0","0:0:0","S",0),
-            ("Hamilton","HAM","Mercedes",   "MER","0:0:0","0:0:0","0:0:0","S",0),
-            ("Russel",  "RUS","Mercedes",   "MER","0:0:0","0:0:0","0:0:0","S",0)]
+iscritti=[["Verstappen","VER","RedBull",    "REB","0:0:0","0:0:0","0:0:0","S",0,"On Race"],
+            ["Perez",   "PER","RedBull",    "REB","0:0:0","0:0:0","0:0:0","S",0,"On Race"],
+            ["Leclerc", "LEC","Ferrari",    "FER","0:0:0","0:0:0","0:0:0","S",0,"On Race"],
+            ["Sainz",   "SAI","Ferrrari",   "FER","0:0:0","0:0:0","0:0:0","S",0,"On Race"],
+            ["Hamilton","HAM","Mercedes",   "MER","0:0:0","0:0:0","0:0:0","S",0,"On Race"],
+            ["Russel",  "RUS","Mercedes",   "MER","0:0:0","0:0:0","0:0:0","S",0,"On Race"]]
 
 onGrid=[("VER",100,100,100,50,0),
             ("PER",100,100,100,50,0),
@@ -27,8 +28,14 @@ def setupPiloti():
     print(iscritti)
 
     mycursor = mydb.cursor()
-    sql = "INSERT INTO Piloti (nome, nick, macchina, nickCar, tTot, tLastLap, gap,tyre, LapOnTyre) \
-                        VALUES (%s, %s,  %s,  %s,  %s,  %s,  %s, %s, %s)"
+    sql = "INSERT INTO Piloti (nome, nick, macchina, nickCar, tTot, tLastLap, gap,tyre, LapOnTyre, Status) \
+                        VALUES (%s, %s,  %s,  %s,  %s,  %s,  %s, %s, %s, %s)"
+
+    random.shuffle(iscritti)
+    gap=0
+    for iscritto in iscritti:
+        iscritto[4]="0:0:" + str(gap)
+        gap+=1
 
     mycursor.executemany(sql, iscritti)
     mydb.commit()
@@ -83,17 +90,22 @@ def aggiornaTempi(parameters):
     for statusCar in myresult:
         tEntrataBox="0:0:0"
         newLapOnTyre=1
-        if (statusCar[5]) :
+        if (statusCar[5]) : #la macchina è stata richiamata per cambio gomme
             tEntrataBox=tBoxTime
             newLapOnTyre=0
 
-        localParameters=[parameters[1],tEntrataBox,parameters[0],statusCar[4],newLapOnTyre,statusCar[0]]
-        print(localParameters)
-        mycursorUpdate.execute("update piloti set gap=timediff(tTot,%s),\
+        if (statusCar[3]>0):
+            localParameters=[parameters[1],tEntrataBox,parameters[0],statusCar[4],newLapOnTyre,statusCar[0]]
+            print(localParameters)
+
+            mycursorUpdate.execute("update piloti set gap=timediff(tTot,%s),\
                                             tTot=addtime(addtime(tTot,tLastLap),%s),\
                                             tLastLap=sec_to_time(time_to_sec(%s)+(1-(%s/100))*100),\
                                             LapOnTyre=LapOnTyre*%s+1\
                             where nick=%s",localParameters) #usa nickname
+        else:
+            mycursorUpdate.execute("update piloti set status='OUT'\
+                            where nick=%s",[statusCar[0]]) #usa nickname
     mycursorUpdate.close()
     mydb.commit()
 
@@ -148,15 +160,18 @@ def stampaClassifica(lap):
     mycursor = mydb.cursor()
     os.system('clear')
     print(f"------------- LAP {lap} ---------------")
-    mycursor.execute("select nick,nickCar,tTot,tLastLap,gap, LapOnTyre, resaGomme, powerOnLap \
+    mycursor.execute("select nick,nickCar,tTot,tLastLap,gap, LapOnTyre, resaGomme, powerOnLap, status \
                       from Piloti, muretto \
                       where nick=nickPilota \
-                      order by tTot")
+                      order by status,tTot")
     myresult = mycursor.fetchall()
-    print(f"Driver\tCar\ttTot\t\tLastLap\t\tGap\tLapOnTyre\tresaGomme\t powerOnLap")
+    print(f"Driver\tCar\ttTot\t\tLastLap\t\tGap\tLapOnTyre\tresaGomme\t powerOnLap \t Status")
 
     for x in myresult:
-        print(f"{x[0]}\t{x[1]}\t{x[2]}\t\t{x[3]}\t\t{x[4]}\t\t{x[5]}\t{x[6]}\t\t{x[7]}")
+        if x[8]!="Out":
+            print(f"{x[0]}\t{x[1]}\t{x[2]}\t\t{x[3]}\t\t{x[4]}\t\t{x[5]}\t{x[6]}\t\t{x[7]}\t{x[8]}")
+        else:
+            print(f"{x[0]}\t{x[1]}\t\t OUT")
     mycursor.close()
 
 def getLeadTime():
@@ -187,3 +202,6 @@ for i in range(40):
     time.sleep(2)
     aggiornaTempi([tLapTime,leadTime])
     updateCarPerformance()
+
+
+stampaClassifica(40)
