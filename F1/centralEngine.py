@@ -47,6 +47,7 @@ def setupGrid():
       password="F1",
       database="F1"
     )
+    
     print(iscritti)
 
     mycursor = mydb.cursor()
