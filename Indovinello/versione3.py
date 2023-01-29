@@ -1,3 +1,6 @@
+import datetime
+inizio = datetime.datetime.now()
+
 l0 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
     12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 pari=0
@@ -118,5 +121,8 @@ for i0 in range(len(l0)):
                                                                                     i += 1
                                                                                     print(f"{i}: {l1[i1]:6d} {l3[i3]:4d} {l5[i5]:4d} {l7[i7]:4d} {l9[i9]:4d} {l11[i11]:4d} {l13[i13]:4d} {l15[i15]:4d} {l17[i17]:4d} {l19[i19]:4d}")
                                                                                     print(f"     {l0[i0]:4d} {l2[i2]:4d} {l4[i4]:4d} {l6[i6]:4d} {l8[i8]:4d} {l10[i10]:4d} {l12[i12]:4d} {l14[i14]:4d} {l16[i16]:4d} {l18[i18]:4d} {l20[0]:4d}")
-print(f"pari={pari} dispari={dispari}")
+
+fine = datetime.datetime.now()
+
+print(f"Ora inizio={inizio}  Ora fine {fine} controlli effettuati= {pari+dispari} pari={pari} dispari={dispari}")
 
