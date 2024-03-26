@@ -53,8 +53,8 @@ for i0 in range(len(l0)):
         permutazioni con l2[i2] in quella posizione abbattendo così la complessità totale.
         Stesso approccio per tutte le posizioni che completano la terna"""
         if ((l1[i1]-l0[i0]) not in l2): 
-          scartoDispari+=1
-          continue
+            scartoDispari+=1
+            continue
         """ calcola il completamento della terna"""
         i2=l2.index(l1[i1]-l0[i0])
         l3 = l2[:]
@@ -74,8 +74,8 @@ for i0 in range(len(l0)):
             l4 = l3[:]
             l4.pop(i3)
             if ((l3[i3]-l2[i2]) not in l4): 
-              scartoDispari+=1
-              continue
+                scartoDispari+=1
+                continue
             i4=l4.index(l3[i3]-l2[i2])
             l5 = l4[:]
             if (len(l5)==1):
@@ -90,8 +90,8 @@ for i0 in range(len(l0)):
                 l6 = l5[:]
                 l6.pop(i5)
                 if ((l5[i5]-l4[i4]) not in l6): 
-                  scartoDispari+=1
-                  continue
+                    scartoDispari+=1
+                    continue
                 i6=l6.index(l5[i5]-l4[i4])
                 l7 = l6[:]
                 if (len(l7)==1):
@@ -106,8 +106,8 @@ for i0 in range(len(l0)):
                     l8 = l7[:]
                     l8.pop(i7)
                     if ((l7[i7]-l6[i6]) not in l8): 
-                      scartoDispari+=1
-                      continue
+                        scartoDispari+=1
+                        continue
                     i8=l8.index(l7[i7]-l6[i6])
                     l9 = l8[:]
                     if (len(l9)==1):
@@ -123,8 +123,8 @@ for i0 in range(len(l0)):
                         l10 = l9[:]
                         l10.pop(i9)
                         if ((l9[i9]-l8[i8]) not in l10): 
-                          scartoDispari+=1
-                          continue
+                            scartoDispari+=1
+                            continue
                         i10=l10.index(l9[i9]-l8[i8])
                         l11 = l10[:]
                         if (len(l11)==1):
@@ -141,8 +141,8 @@ for i0 in range(len(l0)):
                             l12 = l11[:]
                             l12.pop(i11)
                             if ((l11[i11]-l10[i10]) not in l12): 
-                              scartoDispari+=1
-                              continue
+                                scartoDispari+=1
+                                continue
                             i12=l12.index(l11[i11]-l10[i10])
                             l13 = l12[:]
                             if (len(l13)==1):
@@ -159,8 +159,8 @@ for i0 in range(len(l0)):
                                 l14 = l13[:]
                                 l14.pop(i13)
                                 if ((l13[i13]-l12[i12]) not in l14): 
-                                  scartoDispari+=1
-                                  continue
+                                    scartoDispari+=1
+                                    continue
                                 i14=l14.index(l13[i13]-l12[i12])
                                 l15 = l14[:]
                                 if (len(l15)==1):
@@ -178,8 +178,8 @@ for i0 in range(len(l0)):
                                     l16 = l15[:]
                                     l16.pop(i15)
                                     if ((l15[i15]-l14[i14]) not in l16): 
-                                      scartoDispari+=1
-                                      continue
+                                        scartoDispari+=1
+                                        continue
                                     i16=l16.index(l15[i15]-l14[i14])
                                     l17 = l16[:]
                                     if (len(l17)==1):
@@ -197,8 +197,8 @@ for i0 in range(len(l0)):
                                         l18 = l17[:]
                                         l18.pop(i17)
                                         if ((l17[i17]-l16[i16]) not in l18): 
-                                          scartoDispari+=1
-                                          continue
+                                            scartoDispari+=1
+                                            continue
                                         i18=l18.index(l17[i17]-l16[i16])
                                         l19 = l18[:]
                                         if (len(l19)==1):
@@ -217,8 +217,8 @@ for i0 in range(len(l0)):
                                             l20 = l19[:]
                                             l20.pop(i19)
                                             if ((l19[i19]-l18[i18]) not in l20): 
-                                              scartoDispari+=1
-                                              continue
+                                                scartoDispari+=1
+                                                continue
                                             i20=l20.index(l19[i19]-l18[i18])
                                             l21 = l20[:]
                                             if (len(l21)==1):
