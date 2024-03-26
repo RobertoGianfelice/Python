@@ -4,7 +4,7 @@ inizio = datetime.datetime.now()
 """ Contatore combinazioni"""
 i = 0
 
-numeroGettoni=int(input("Inserisci il numero di gettoni (max 23): "))
+numeroGettoni=int(input("Inserisci il numero di gettoni (max 25): "))
 l0=[]
 for n in range(1, numeroGettoni+1):
     l0.append(n)
@@ -229,23 +229,46 @@ for i0 in range(len(l0)):
                                                             l18[i18],l19[i19],l20[i20]]
                                                 stampaSoluzione(soluzione)
                                                 break
-
                                             l21.pop(i20)
+
                                             for i21 in range(len(l21)):
-                                                if (l20[i20]>l21[i21]):
+                                                if (l20[i20]>l21[i21]):                                                
                                                     scartoPari+=1
                                                     continue
                                                 l22 = l21[:]
                                                 l22.pop(i21)
-                                                if (l21[i21]==l20[i20]+l22[0]):
-                                                    """ La permutazione è una soluzione: incremento il contatore e la stampo!!!"""
+                                                if ((l21[i21]-l20[i20]) not in l22): 
+                                                    scartoDispari+=1
+                                                    continue
+                                                i22=l22.index(l21[i21]-l20[i20])
+                                                l23 = l22[:]
+                                                if (len(l23)==1):
                                                     soluzione=[l0[i0],l1[i1],l2[i2],l3[i3],l4[i4],
                                                                 l5[i5],l6[i6],l7[i7],l8[i8],l9[i9],
                                                                 l10[i10],l11[i11],l12[i12],l13[i13],
                                                                 l14[i14],l15[i15],l16[i16],l17[i17],
                                                                 l18[i18],l19[i19],l20[i20],l21[i21],
-                                                                l22[0]]
+                                                                l22[i22]]
                                                     stampaSoluzione(soluzione)
+                                                    break
+
+
+                                                l23.pop(i22)
+                                                for i23 in range(len(l23)):
+                                                    if (l22[i22]>l23[i23]):
+                                                        scartoPari+=1
+                                                        continue
+                                                    l24 = l23[:]
+                                                    l24.pop(i23)
+                                                    if (l23[i23]==l22[i22]+l24[0]):
+                                                        """ La permutazione è una soluzione: incremento il contatore e la stampo!!!"""
+                                                        soluzione=[l0[i0],l1[i1],l2[i2],l3[i3],l4[i4],
+                                                                    l5[i5],l6[i6],l7[i7],l8[i8],l9[i9],
+                                                                    l10[i10],l11[i11],l12[i12],l13[i13],
+                                                                    l14[i14],l15[i15],l16[i16],l17[i17],
+                                                                    l18[i18],l19[i19],l20[i20],l21[i21],
+                                                                    l22[i22],l23[i23],l24[0]]
+                                                        stampaSoluzione(soluzione)
                                             
                                               
 
