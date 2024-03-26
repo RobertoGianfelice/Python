@@ -50,7 +50,7 @@ for i0 in range(len(l0)):
         l2 = l1[:]
         l2.pop(i1)
         """ verifica esistenza del terzo elemento. Se non esiste, scarta il resto di tutte le
-        permutazioni con i2 in quella posizione abbattendo così la complessità totale.
+        permutazioni con l2[i2] in quella posizione abbattendo così la complessità totale.
         Stesso approccio per tutte le posizioni che completano la terna"""
         if ((l1[i1]-l0[i0]) not in l2): 
           scartoDispari+=1
@@ -64,9 +64,10 @@ for i0 in range(len(l0)):
             break
         l3.pop(i2)
         for i3 in range(len(l3)):
-            """ verifica accettabilità con i3. Se non accettabile, scarta il resto di tutte le
-            permutazioni con i3 in quella posizione abbattendo così la complessità totale.
-            Stesso approccio per tutte le posizioni pari"""
+            """ verifica accettabilità con l3[i3] (posizioni in alto): il nuovo elmento deve 
+            essere minore del precedente. Se non accettabile, scarta il resto di tutte le permutazioni 
+            con l3[i3] in quella posizione abbattendo così la complessità totale. 
+            Stesso approccio per tutte le posizioni in alto"""
             if (l2[i2] > l3[i3]):
                 scartoPari+=1
                 continue
