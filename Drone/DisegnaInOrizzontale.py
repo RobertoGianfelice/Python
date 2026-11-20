@@ -1,7 +1,10 @@
 # Import Library
 from djitellopy import Tello
 
-n=int(input("Inserisci il numero dei lati: "))
+n=0
+
+while (n<3):
+    n=int(input("Inserisci il numero dei lati: "))
 
 # Tello Setup
 drone = Tello()
