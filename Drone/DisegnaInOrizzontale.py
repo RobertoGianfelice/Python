@@ -1,28 +1,31 @@
+# Su Windows, ricordarsi di disabilitare il firewall, sia di dominio, pubblico e privato
 # Includo la libreria del drone
 from djitellopy import Tello
 
-lato=40
-n=0
+lunghezza=50
+lati=0
+contatore=0
 
-while (n<3):
-    n=int(input("Inserisci il numero dei lati: "))
+while (lati<3):
+    lati=int(input("Inserisci il numero dei lati: "))
 
 # Creo il drone
 drone = Tello()
-
 # Mi connetto in wi-fi
 drone.connect()
-
 # Decollo: il drone si alza di circa 80 cm
 drone.takeoff()
 
-# aimentiamo la quota di 50 cm
+# aumentiamo la quota di 50 cm
 drone.move_up(50)
 
+
+
 # Disegna il lato e gira a destra per n volte 
-for i in range(n):
-    drone.move_forward(lato)
-    drone.rotate_clockwise(int(360/n))
+while (contatore<lati):
+    drone.move_forward(lunghezza)
+    drone.rotate_clockwise(int(360/lati))
+    contatore=contatore+1
 
 # Capovolta in avanti
 drone.flip_forward()
